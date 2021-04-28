@@ -27,19 +27,23 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('animals', AnimalController::class);
-Route::resource('adoptions', AdoptionController::class);
-Route::get('/home', [App\Http\Controllers\AnimalController::class, 'index'])->name('home');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('animals', AnimalController::class)->middleware('auth');
+Route::resource('adoptions', AdoptionController::class)->middleware('auth');
+Route::get('/home', [App\Http\Controllers\AnimalController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 // Route::get('my', [App\Http\Controllers\AdoptionController::class, 'myRequests'])->name('my');
-Route::get('owners', [App\Http\Controllers\AdoptionController::class, 'owners'])->name('owners');
-Route::get('denied', [App\Http\Controllers\AdoptionController::class, 'denied'])->name('denied');
-Route::get('homeless', [App\Http\Controllers\AnimalController::class, 'homeless'])->name('homeless');
-Route::get('pastAdoptions', [App\Http\Controllers\AdoptionController::class, 'pastAdoptions'])->name('pastAdoptions');
-Route::get('approve', [App\Http\Controllers\AdoptionController::class, 'approve'])->name('approve');
-Route::get('deny', [App\Http\Controllers\AdoptionController::class, 'deny'])->name('deny');
-Route::get('sort', [App\Http\Controllers\AnimalController::class, 'sort'])->name('sort');
-Route::get('sortName', [App\Http\Controllers\AnimalController::class, 'sortName'])->name('sortName');
-Route::get('sortAdmin', [App\Http\Controllers\AnimalController::class, 'sortAdmin'])->name('sortAdmin');
-Route::get('sortNameAdmin', [App\Http\Controllers\AnimalController::class, 'sortNameAdmin'])->name('sortNameAdmin');
+Route::get('owners', [App\Http\Controllers\AdoptionController::class, 'owners'])->name('owners')->middleware('auth');
+Route::get('denied', [App\Http\Controllers\AdoptionController::class, 'denied'])->name('denied')->middleware('auth');
+Route::get('homeless', [App\Http\Controllers\AnimalController::class,
+'homeless'])->name('homeless')->middleware('auth');
+Route::get('pastAdoptions', [App\Http\Controllers\AdoptionController::class,
+'pastAdoptions'])->name('pastAdoptions')->middleware('auth');
+Route::get('approve', [App\Http\Controllers\AdoptionController::class, 'approve'])->name('approve')->middleware('auth');
+Route::get('deny', [App\Http\Controllers\AdoptionController::class, 'deny'])->name('deny')->middleware('auth');
+Route::get('sort', [App\Http\Controllers\AnimalController::class, 'sort'])->name('sort')->middleware('auth');
+Route::get('sortName', [App\Http\Controllers\AnimalController::class,
+'sortName'])->name('sortName')->middleware('auth');
+Route::get('sortAdmin', [App\Http\Controllers\AnimalController::class,
+'sortAdmin'])->name('sortAdmin')->middleware('auth');
+Route::get('sortNameAdmin', [App\Http\Controllers\AnimalController::class, 'sortNameAdmin'])->name('sortNameAdmin')->middleware('auth');
 
